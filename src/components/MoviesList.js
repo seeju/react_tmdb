@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from 'react-router-dom';
 import { MoviesService } from "../api/MoviesService";
 
 
@@ -8,20 +9,25 @@ export const MoviesList = () => {
   useEffect(() => {
     MoviesService.getPopularMovies()
       .then((res) => {setMovies(res.data.results)
-      console.log(res)})
+      let teste = res.data.title})
       .catch((err) => console.error(err));
 
   },[]);
 
   return (
     <>
-      <h1>Films</h1>
+      <h1>Popular Films</h1>
 
       <ul>
         {!!movies && movies.map((m) => (
-          <li>{m.title}</li>
+          <li>
+          <Link to={`/movie/${m?.id}`}>
+            {m.title}
+          </Link>
+          </li>
         ))}
       </ul>
     </>
   );
 };
+

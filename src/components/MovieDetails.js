@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import { MoviesService } from "../api/MoviesService";
 
 
@@ -8,17 +7,18 @@ export const MovieDetails = (props) => {
 
   useEffect(() => {
     MoviesService.getMovieById(props?.match?.params?.id)
-      .then((res) => {setMovie(res.data.results)})
+      .then((res) => {setMovie(res.data)
+      console.log(res)})
       .catch((err) => console.error(err));
 
   },[]);
 
 
   return (
-  <>
-
-      <h1>Entrooou</h1>
-
+    <>
+    <h3>{!!movie && movie.title}</h3>
+    <h5>{!!movie && movie.original_title}</h5>
+    <p>{!!movie && movie.overview}</p>
     </>
   )
 };
